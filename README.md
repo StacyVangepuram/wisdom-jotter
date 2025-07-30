@@ -1,130 +1,174 @@
-# Wisdom Jotter: Preserving India's Cultural Wisdom
+# Wisdom Jotter App
 
-## 📜 Project Overview
+![Streamlit App](https://img.shields.io/badge/Streamlit-Cloud-orange?style=flat-square&logo=streamlit)
+![Python Version](https://img.shields.io/badge/Python-3.9%2B-blue?style=flat-square&logo=python)
+![License](https://img.shields.io/badge/License-Apache%202.0-red?style=flat-square)
 
-The "Wisdom Jotter" is an open-source, AI-powered Streamlit application designed to collaboratively collect, preserve, and showcase valuable cultural and experiential knowledge from across India. This initiative directly supports Viswam.ai's mission to develop AI that deeply understands India's linguistic and cultural diversity.
+A Streamlit-powered web application designed to collect, store, and share timeless proverbs and valuable life lessons. This project leverages Google Sheets for robust data persistence and integrates AI for semantic duplicate detection, ensuring the uniqueness and quality of contributions.
 
-**Key Features:**
-* **Contribute Local Wisdom:** Easily submit traditional proverbs and life lessons in various Indian languages.
-* **AI-Powered Duplicate Detection:** Utilizes a multilingual sentence transformer model (`sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`) to check for semantic similarity, ensuring the collection of unique and high-quality data.
-* **Cloud-Based Storage:** All contributions are securely stored in Google Sheets for persistent, accessible, and easily manageable data.
-* **Publicly Browsable Corpus:** View all submitted proverbs and life lessons directly within the app.
-* **CSV Export:** Download the entire collected corpus for research and analysis.
-* **Accessibility First:** Designed with a focus on low-internet bandwidth regions, featuring minimal data transfer and a responsive UI.
+## Table of Contents
 
-## 🚀 Live Application
+-   [Features](#features)
+-   [Live Application](#live-application)
+-   [Local Development Setup](#local-development-setup)
+-   [Project Structure](#project-structure)
+-   [Data Persistence](#data-persistence)
+-   [AI Integration Details](#ai-integration-details)
+-   [Deployment (Streamlit Community Cloud)](#deployment-streamlit-community-cloud)
+-   [Contributing](#contributing)
+-   [License](#license)
 
-Experience the Wisdom Jotter app live on Hugging Face Spaces:
+## Features
 
-[**Access the Wisdom Jotter App Here!**](https://huggingface.co/spaces/stacyv/wisdom-jotter)
+* **Wisdom Submission:** Users can easily submit new proverbs and life lessons via an intuitive form.
+* **AI Duplicate Detection:** Utilizes a pre-trained sentence transformer model to identify semantically similar submissions, preventing redundancy.
+* **Google Sheets Backend:** All submitted data is securely stored and retrieved from Google Sheets, providing a flexible and scalable database.
+* **Browse Wisdom:** A dedicated section to view all collected proverbs and life lessons.
+* **Data Export:** Functionality to download the entire corpus as CSV files.
+* **User-Friendly Interface:** Built with Streamlit for a clean and interactive web experience.
 
+## Live Application
 
-## ✨ How to Contribute Wisdom
+Access the deployed Wisdom Jotter application here:
+**[https://wisdom-jotter-6mk3tcttspcvyk9qiqqwph.streamlit.app/](https://wisdom-jotter-6mk3tcttspcvyk9qiqqwph.streamlit.app/)**
 
-It's simple to share your unique insights:
+## Local Development Setup
 
-1.  Visit the [live application link](https://huggingface.co/spaces/stacyv/wisdom-jotter).
-2.  Select whether you want to share a "Proverb" or a "Life Lesson".
-3.  Enter the wisdom in the provided text area, specifying its language and (optionally) region.
-4.  The app will automatically check for similar existing entries using AI to help maintain a unique corpus.
-5.  Click "Submit" – your contribution will be instantly saved and added to the collection!
-
-## 🛠️ Technical Architecture
-
-* **Frontend & Application Framework:** [Streamlit](https://streamlit.io/)
-    * **Justification:** Enables rapid development of interactive web applications in Python, providing inherent responsiveness crucial for mobile and low-bandwidth accessibility.
-* **Backend & Data Storage:** Python with [Google Sheets](https://docs.gspread.org/en/latest/)
-    * **Implementation:** Utilizes the `gspread` library for secure interaction with Google Sheets. A Google Cloud Service Account facilitates authentication, with credentials stored securely as secrets on Hugging Face Spaces.
-    * **Benefit:** Provides persistent, scalable, and easily manageable cloud storage for all contributions, overcoming the ephemeral storage limitations of free deployment tiers.
-* **AI Integration:** Semantic Similarity using [Sentence Transformers](https://www.sbert.net/)
-    * **Model:** `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`
-    * **Purpose:** Converts text into numerical embeddings, allowing the application to calculate cosine similarity between new and existing entries to detect and flag potential duplicates.
-
-## 📦 Project Structure
-
-
-WISDOM JOTTER APP/
-├── .streamlit/
-│   └── config.toml           # Streamlit application configuration (theme, etc.)
-├── app.py                    # The main Streamlit application code
-├── .gitignore                # Specifies files and folders to be ignored by Git (e.g., secrets.toml)
-├── requirements.txt          # Lists all Python dependencies
-├── README.md                 # This file
-├── LICENSE                   # Project license information
-├── CONTRIBUTING.md           # Guidelines for contributors
-└── [other project files like CHANGELOG.md, REPORT.md, etc.]
-
-## ⚙️ Local Development Setup
-
-To run this application on your local machine:
+To run this application locally for development or testing:
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://code.swecha.org/Stacy_Vangepuram/wiadom-jotter-app.git](https://code.swecha.org/Stacy_Vangepuram/wisdom-jotter-app.git)
-    cd wisdom-jotter-app
+    git clone [https://code.swecha.org/Stacy_Vangepuram/wisdom-jotter-app.git](https://code.swecha.org/Stacy_Vangepuram/wisdom-jotter-app.git)
+    cd wisdom-jotter-app # Navigate into your project directory
     ```
 
-2.  **Create and activate a virtual environment (recommended):**
+2.  **Create a virtual environment (recommended):**
     ```bash
     python -m venv venv
-    # On Windows:
-    .\venv\Scripts\activate
-    # On macOS/Linux:
-    source venv/bin/activate
     ```
 
-3.  **Install dependencies:**
+3.  **Activate the virtual environment:**
+    * **On Windows:**
+        ```bash
+        .\venv\Scripts\activate
+        ```
+    * **On macOS/Linux:**
+        ```bash
+        source venv/bin/activate
+        ```
+
+4.  **Install dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
 
-4.  **Set up Google Cloud Credentials:**
-    * Follow the "Google Cloud Setup" steps as outlined in the project documentation (or previous instructions provided). This involves:
-        * Creating a Google Cloud Project.
-        * Enabling the Google Sheets API.
-        * Creating a Service Account and generating its JSON key.
-    * **Crucially, create a folder named `.streamlit` in your project's root directory.**
-    * **Inside `.streamlit`, create a file named `secrets.toml`.**
-    * **Copy the entire content of your downloaded Google Service Account JSON key file into `secrets.toml`** under a `[gcp_service_account]` section, converting it to TOML format. It should look like this:
+5.  **Set up Google Cloud Credentials:**
+    * Follow the instructions in the [Data Persistence](#data-persistence) section to obtain your Google Service Account JSON key.
+    * Create a `.streamlit` folder in your project's root directory if it doesn't exist.
+    * Inside the `.streamlit` folder, create a file named `secrets.toml`.
+    * Add your Google Service Account key and Google Sheet names to `secrets.toml` in the following format:
         ```toml
         # .streamlit/secrets.toml
-        [gcp_service_account]
-        type = "service_account"
-        project_id = "your-project-id-from-json"
-        private_key_id = "your-private-key-id-from-json"
-        private_key = """-----BEGIN PRIVATE KEY-----
-        YOUR_ENTIRE_MULTI_LINE_PRIVATE_KEY_HERE
-        -----END PRIVATE KEY-----"""
-        client_email = "your-service-account-email-from-json"
-        client_id = "your-client-id-from-json"
-        auth_uri = "[https://accounts.google.com/o/oauth2/auth](https://accounts.google.com/o/oauth2/auth)"
-        token_uri = "[https://oauth2.googleapis.com/token](https://oauth2.googleapis.com/token)"
-        auth_provider_x509_cert_url = "[https://www.googleapis.com/oauth2/v1/certs](https://www.googleapis.com/oauth2/v1/certs)"
-        client_x509_cert_url = "[https://www.googleapis.com/robot/v1/metadata/x509/your-service-account-email-url-encoded](https://www.googleapis.com/robot/v1/metadata/x509/your-service-account-email-url-encoded)"
-        universe_domain = "googleapis.com"
-
+        GCP_SERVICE_ACCOUNT = '''
+        {
+          "type": "service_account",
+          "project_id": "your-project-id",
+          "private_key_id": "your-private_key-id",
+          "private_key": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n",
+          "client_email": "your-service-account-email@your-project-id.iam.gserviceaccount.com",
+          "client_id": "your-client-id",
+          "auth_uri": "[https://accounts.google.com/o/oauth2/auth](https://accounts.google.com/o/oauth2/auth)",
+          "token_uri": "[https://oauth2.googleapis.com/token](https://oauth2.googleapis.com/token)",
+          "auth_provider_x509_cert_url": "[https://www.googleapis.com/oauth2/v1/certs](https://www.googleapis.com/oauth2/v1/certs)",
+          "client_x509_cert_url": "[https://www.googleapis.com/robot/v1/metadata/x509/your-service-account-email@your-project-id.iam.gserviceaccount.com](https://www.googleapis.com/robot/v1/metadata/x509/your-service-account-email@your-project-id.iam.gserviceaccount.com)",
+          "universe_domain": "googleapis.com"
+        }
+        '''
         PROVERBS_SHEET_NAME = "WisdomJotter_Proverbs"
         LIFE_LESSONS_SHEET_NAME = "WisdomJotter_LifeLessons"
         ```
-    * **Prepare your Google Sheets:** Create two new Google Sheets named `WisdomJotter_Proverbs` and `WisdomJotter_LifeLessons` in your Google Drive.
-    * **Share both Google Sheets with your Service Account's email address (from `client_email` in your JSON/TOML) with "Editor" access.**
+    * **Important:** Ensure `.streamlit/secrets.toml` is included in your `.gitignore` file to prevent it from being pushed to your public repository.
 
-5.  **Run the Streamlit app:**
+6.  **Run the Streamlit application:**
     ```bash
     streamlit run app.py
     ```
-    This will open the application in your web browser.
+    The app will open in your default web browser.
 
-## 🤝 Contributing
+## Project Structure
 
-We welcome contributions to the Wisdom Jotter project! Whether you're fixing bugs, adding new features, or improving documentation, your help is appreciated.
+WISDOM JOTTER APP/
+├── .streamlit/             # Streamlit configuration files
+│   └── config.toml         # Streamlit general configurations
+│   └── secrets.toml        # Streamlit secrets (ignored by Git)
+├── app.py                  # Main Streamlit application script
+├── .gitignore              # Specifies intentionally untracked files to ignore
+├── CHANGELOG.md            # Documents all notable changes to the project
+├── CONTRIBUTING.md         # Guidelines for contributing to the project
+├── LICENSE                 # Project's open-source license (Apache License 2.0)
+├── README.md               # Project overview and setup instructions
+├── REPORT.md               # Project report/documentation (if applicable)
+└── requirements.txt        # Python dependencies required for the project
 
-Please refer to our [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+## Data Persistence
 
-## 📄 License
+The Wisdom Jotter App uses Google Sheets for data storage.
 
-This project is licensed under the [LICENSE file name, e.g., Apache License 2.0]. See the [LICENSE](LICENSE) file for details.
+1.  **Create Google Sheets:**
+    * Create two new Google Sheets in your Google Drive: `WisdomJotter_Proverbs` and `WisdomJotter_LifeLessons`.
+    * Ensure they have appropriate headers for your data (e.g., "ID", "Content", "Language", "Region", "Timestamp", "Duplicates Detected" etc.).
 
+2.  **Set up a Google Service Account:**
+    * Go to Google Cloud Console: [https://console.cloud.google.com/](https://console.cloud.google.com/)
+    * Create a new project (if you don't have one) or select an existing one.
+    * Enable the "Google Sheets API" and "Google Drive API" for your project.
+    * Go to **IAM & Admin -> Service Accounts**.
+    * Create a new Service Account.
+    * Grant it the `Editor` role (or more specific roles like `Google Sheets API Editor`, `Drive API Editor` if available and preferred for security).
+    * Create a new JSON key for this service account and download it. This JSON file contains your `GCP_SERVICE_ACCOUNT` credentials.
 
+3.  **Share Google Sheets with Service Account:**
+    * Open your `WisdomJotter_Proverbs` and `WisdomJotter_LifeLessons` Google Sheets.
+    * Click the "Share" button.
+    * Add the **client_email** from your downloaded service account JSON key file (e.g., `your-service-account-email@your-project-id.iam.gserviceaccount.com`) as an editor.
 
----
+## AI Integration Details
+
+The application incorporates an AI model for semantic duplicate detection of submitted proverbs and life lessons.
+
+* **Model:** `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`
+* **Functionality:** When a new wisdom entry is submitted, its semantic similarity is compared against existing entries in the Google Sheet. If a high similarity score is detected, the submission is flagged as a potential duplicate, preventing redundant entries and maintaining data quality.
+
+## Deployment (Streamlit Community Cloud)
+
+This application is deployed on Streamlit Community Cloud for easy public access.
+
+**Deployment Process:**
+
+1.  **Ensure your project is in a GitHub or GitLab repository:** The Streamlit Community Cloud primarily deploys directly from Git repositories.
+2.  **Verify `requirements.txt`:** Make sure your `requirements.txt` file lists all necessary Python libraries (e.g., `streamlit`, `gspread`, ``pandas`, `torch`, `sentence-transformers`).
+3.  **Secure your secrets:** Your Google Service Account key and sheet names are stored as environment variables (secrets) directly within the Streamlit Cloud app settings, not in your public repository.
+    * **How to add secrets on Streamlit Cloud:**
+        * Go to your Streamlit Cloud dashboard (`share.streamlit.io`).
+        * Click "New app".
+        * Select your GitLab repository and branch.
+        * Before deploying, under "Advanced settings," you'll find a section for "Secrets."
+        * Add your secrets in the format:
+            ```
+            GCP_SERVICE_ACCOUNT="""{
+              "type": "service_account",
+              ... (full JSON content) ...
+            }"""
+            PROVERBS_SHEET_NAME="WisdomJotter_Proverbs"
+            LIFE_LESSONS_SHEET_NAME="WisdomJotter_LifeLessons"
+            ```
+            *Make sure the `GCP_SERVICE_ACCOUNT` JSON is wrapped in triple quotes (`"""..."""`) as shown.*
+4.  **Deploy:** Click "Deploy!" Streamlit Cloud will pull your code, install dependencies, and run your app. Any subsequent pushes to your connected GitLab/GitHub branch will automatically trigger a redeployment.
+
+## Contributing
+
+We welcome contributions! Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on how to report bugs, suggest features, and contribute code.
+
+## License
+
+This project is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for full details.
