@@ -1,3 +1,6 @@
+# --- CRITICAL: Ignore ONLY secrets.toml within .streamlit/ ---
+.streamlit/secrets.toml
+
 # Python
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -65,9 +68,5 @@ env/
 .streamlit/static/
 .streamlit/local_storage.json
 
-# --- CRITICAL: Ignore ONLY secrets.toml within .streamlit/ ---
-.streamlit/secrets.toml
 
-# Data folder (if you've moved to Google Sheets, these are no longer needed locally)
-# If you have any other local data files that are not meant for Git, add them here.
-data/
+
