@@ -12,7 +12,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **Initial MVP Release:** Core Streamlit application for collecting proverbs and life lessons.
 * **Google Sheets Integration:** Implemented persistent data storage using Google Sheets (`WisdomJotter_Proverbs` and `WisdomJotter_LifeLessons`) via the `gspread` library.
 * **AI-Powered Semantic Duplicate Detection:** Integrated `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` model to identify and flag semantically similar contributions.
-* **Hugging Face Spaces Deployment:** Project configured for deployment on Hugging Face Spaces, leveraging `st.secrets` for secure credential management.
 * **User Contribution Form:** Intuitive form to submit proverbs and life lessons with language and region hints.
 * **Public Browse Section:** Allows users to view all submitted proverbs and life lessons within the application.
 * **CSV Data Export:** Functionality to download the collected corpus as CSV files for analysis.
