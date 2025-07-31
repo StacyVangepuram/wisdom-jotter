@@ -1,6 +1,6 @@
 [theme]
-primaryColor="#4CAF50" # Green submit button
-backgroundColor="#F0F2F6"
-secondaryBackgroundColor="#FFFFFF"
-textColor="#31333F"
-font="sans serif"
+base="dark"
+primaryColor="#1E90FF"
+backgroundColor="#0E1117"
+secondaryBackgroundColor="#262730"
+textColor="#FAFAFA"
